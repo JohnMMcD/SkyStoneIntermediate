@@ -112,7 +112,8 @@ public class OpModeWithIMU extends LinearOpMode {
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
-
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Set up our telemetry dashboard
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         composeTelemetry();
@@ -133,7 +134,7 @@ public class OpModeWithIMU extends LinearOpMode {
             double rightPower;
 
             angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            if (angles.firstAngle > 150 || angles.firstAngle < -130)
+            if (angles.firstAngle > 175 || angles.firstAngle < -160)
             {
                  bStillTurning = false;
             }
@@ -148,10 +149,17 @@ public class OpModeWithIMU extends LinearOpMode {
 //            composeTelemetry();
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-
+            telemetry.addData("Hello", "world");
             telemetry.update();
             idle();
         }
+        leftDrive.setPower(0.0);
+        rightDrive.setPower(0.0);
+        sleep(1000);
+        composeTelemetry();
+        telemetry.update();
+
+        sleep(25000);
     }
 
     //----------------------------------------------------------------------------------------------
