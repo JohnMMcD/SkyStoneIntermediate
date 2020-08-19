@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /*
  * This is an example LinearOpMode that shows how to use the ColorSensor class. The opmode
@@ -46,12 +45,9 @@ public class ColorSensorNotNormalized extends LinearOpMode {
 
   /** The colorSensor field will contain a reference to our color sensor hardware object */
   ColorSensor colorSensor;
-  TouchSensor digitalTouch;  // Hardware Device Object
 
   @Override
   public void runOpMode() {
-    digitalTouch = hardwareMap.get(TouchSensor.class, "touch1");
-
     // Get a reference to our sensor object.
     colorSensor = hardwareMap.get(ColorSensor.class, "color1");
 
@@ -61,8 +57,8 @@ public class ColorSensorNotNormalized extends LinearOpMode {
     // Loop until we are asked to stop
     while (opModeIsActive()) {
 
-      // Show the light if the touch sensor is held down
-      colorSensor.enableLed(digitalTouch.isPressed());
+      // This has no effect on the Rev color sensor
+      colorSensor.enableLed(false);
 
       telemetry.addLine()
               .addData("Hue", "%d", colorSensor.argb());
